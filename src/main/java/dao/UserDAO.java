@@ -19,11 +19,36 @@ public class UserDAO {
 
 	private HashMap<String, User> users = new HashMap<String, User>();
 	private ArrayList<User> userList = new ArrayList<User>();
-	private String realPath;
+	
+	String path = System.getProperty("user.dir") + "\\src\\main\\csv\\users.txt";
+
 	
 	public Collection<User> findAll()
 	{
 		return users.values();	
+	}
+	public Collection<String> findAllUsernames()
+	{
+		ArrayList<String> usernames = new ArrayList<String>();
+		
+		for(User user : users.values()) 
+		{
+			usernames.add(user.getUsername());
+		}
+		
+		return usernames;
+	}
+	
+	public Collection<String> getManagers(){
+		ArrayList<String> usernames = new ArrayList<String>();
+		for(User user : users.values()) 
+		{
+			if (user.getRole().equals("Manager") /*&& !user.getIsBlocked()*/) {
+				usernames.add(user.getUsername());
+			}
+		}
+		
+		return usernames;
 	}
 	
 	public User findUser(String username) 
@@ -40,14 +65,13 @@ public class UserDAO {
 	public void Delete(String username) 
 	{
 		users.remove(username);
+		rewriteUsersFile();
 	}
 
-	public UserDAO(String path) {
-		realPath = path + "users.txt";
-		System.out.println(realPath);
+	public UserDAO() {
 		BufferedReader in = null;
 		try {
-			File file = new File(path + "/users.txt");
+			File file = new File(path);
 			in = new BufferedReader(new FileReader(file));
 			readUsers(in);
 		} catch (Exception e) {
@@ -77,7 +101,6 @@ public class UserDAO {
 
 	            StringTokenizer st = new StringTokenizer(line, ";");
 
-	            if (st.countTokens() >= 7) {
 	                String username = st.nextToken().trim();
 	                String password = st.nextToken().trim();
 	                String firstName = st.nextToken().trim();
@@ -92,8 +115,7 @@ public class UserDAO {
 	                User user = new User(username, password, firstName, lastName, gender, date, role);
 	                users.put(username, user);
 	                userList.add(user);
-	                System.out.println(user);
-	            }
+	          
 	        }
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
@@ -103,7 +125,7 @@ public class UserDAO {
 
     public void writeUser(User user) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
 
                 StringBuilder line = new StringBuilder();
 
@@ -162,7 +184,7 @@ public class UserDAO {
 	}
 
 	private void rewriteUsersFile() {
-	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
 	        for (User user : users.values()) {
 	            StringBuilder line = new StringBuilder();
 

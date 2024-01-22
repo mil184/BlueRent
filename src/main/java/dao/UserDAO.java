@@ -87,10 +87,7 @@ public class UserDAO {
 		}
 	}
 
-	/**
-	 * Cita proizvode iz datoteke i smesta ih u asocijativnu listu proizvoda.
-	 * Kljuc je id proizvoda.
-	 */
+
 	private void readUsers(BufferedReader in) {
 	    String line;
 	    try {
@@ -129,7 +126,6 @@ public class UserDAO {
 
                 StringBuilder line = new StringBuilder();
 
-                // Append user data to the line
                 line.append(user.getUsername()).append(";")
                     .append(user.getPassword()).append(";")
                     .append(user.getFirstName()).append(";")
@@ -139,14 +135,13 @@ public class UserDAO {
                     .append(user.getRole()).append(";");
 
 
-                // Write the line to the file
                 writer.write(line.toString());
                 writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-	/** Vraca listu proizvoda. */
+
 	public ArrayList<User> getProductList() {
 		return userList;
 	}
@@ -155,9 +150,8 @@ public class UserDAO {
 	    User userToUpdate = this.findUser(updatedUser.getUsername());
 
 	    if (userToUpdate != null) {
-	        users.remove(updatedUser.getUsername()); // Delete the line containing the found user
+	        users.remove(updatedUser.getUsername());
 
-	        // Create a new User object with updated data
 	        User newUser = new User(
 	            updatedUser.getUsername(),
 	            updatedUser.getPassword(),
@@ -168,20 +162,18 @@ public class UserDAO {
 	            updatedUser.getRole()
 	        );
 
-	        users.put(updatedUser.getUsername(), newUser); // Insert the updated user
-	        
-	        for(User user: users.values()) {
-	        	System.out.println(user);
-	        }
+	        users.put(updatedUser.getUsername(), newUser); 
 
-	        // Rewrite the entire file with updated user data
 	        rewriteUsersFile();
+
+	        System.out.println("Updated user: " + newUser);
 
 	        return newUser;
 	    }
 
 	    return null; // User not found
 	}
+
 
 	private void rewriteUsersFile() {
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {

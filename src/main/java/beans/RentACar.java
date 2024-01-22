@@ -6,6 +6,7 @@ import java.util.Objects;
 enum Status { OPEN, CLOSED }
 
 public class RentACar {
+	private int id;
 	private String name;
 	// vehicles
 	private LocalTime startTime;
@@ -15,9 +16,20 @@ public class RentACar {
 	private Location location;
 	private String logoPath;
 	private double grade;
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -64,9 +76,10 @@ public class RentACar {
 		this.grade = grade;
 	}
 	public RentACar() {}
-	public RentACar(String name, LocalTime startTime, LocalTime endTime, int locationId,
+	public RentACar(int id, String name, LocalTime startTime, LocalTime endTime, int locationId,
 			String logoPath, double grade) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -81,10 +94,12 @@ public class RentACar {
 			this.status = Status.CLOSED;
 		}
 	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(endTime, grade, location, locationId, logoPath, name, startTime, status);
+		return Objects.hash(endTime, grade, id, location, locationId, logoPath, name, startTime, status);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,17 +110,20 @@ public class RentACar {
 			return false;
 		RentACar other = (RentACar) obj;
 		return Objects.equals(endTime, other.endTime)
-				&& Double.doubleToLongBits(grade) == Double.doubleToLongBits(other.grade)
+				&& Double.doubleToLongBits(grade) == Double.doubleToLongBits(other.grade) && id == other.id
 				&& Objects.equals(location, other.location) && locationId == other.locationId
 				&& Objects.equals(logoPath, other.logoPath) && Objects.equals(name, other.name)
 				&& Objects.equals(startTime, other.startTime) && status == other.status;
 	}
+
 	@Override
 	public String toString() {
-		return "RentACar [name=" + name + ", startTime=" + startTime + ", endTime=" + endTime + ", status=" + status
-				+ ", locationId=" + locationId + ", logoPath=" + logoPath + ", grade="
-				+ grade + "]";
+		return "RentACar [id=" + id + ", name=" + name + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", status=" + status + ", locationId=" + locationId + ", location=" + location + ", logoPath="
+				+ logoPath + ", grade=" + grade + "]";
 	}
+	
+	
 	
 	
 }

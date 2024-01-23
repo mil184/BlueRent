@@ -8,7 +8,8 @@ Vue.component("create-rentACar",
 				startTime : null,
 				endTime : null,
 				status : null,
-				locationId : null,
+				address : null,
+				city : null,
 				logoPath : null,
 				grade : null
 			},
@@ -18,6 +19,8 @@ Vue.component("create-rentACar",
 				startTime : " ",
 				endTime : " ",
 				status : " ",
+				address : " ",
+				city : " ",
 				locationId : " ",
 				logoPath : " ",
 				grade : " "
@@ -31,7 +34,7 @@ Vue.component("create-rentACar",
 	    	<h2>CREATE RENT A CAR OBJECT</h2>
 	    	<form class="login-form" @submit="TryCreate">
 	    		
-	    		<p>Select name:</p>
+	    		<p>Enter name:</p>
 	        	<small>{{ errorMessages.name }}</small>
 	        	<input type="text" placeholder="Name" v-model="rentACar.name">
 	        	
@@ -41,11 +44,13 @@ Vue.component("create-rentACar",
 	        	<small>{{ errorMessages.endTime }}</small>
 	        	<input type="time" placeholder="End time" v-model="rentACar.endTime">
 	        	
-	        	<p>Select location:</p>
-	        	<small>{{ errorMessages.locationId }}</small>
-	        	<input type="text" placeholder="Location Id" v-model="rentACar.locationId">
+	        	<p>Enter location:</p>
+	        	<small>{{ errorMessages.address }}</small>
+	        	<input type="text" placeholder="Address" v-model="rentACar.address">
+	        	<small>{{ errorMessages.city }}</small>
+	        	<input type="text" placeholder="City" v-model="rentACar.city">
 	        	
-	        	<p>Select logo:</p>
+	        	<p>Enter logo path:</p>
 	        	<small>{{ errorMessages.logoPath }}</small>
 	        	<input type="text" placeholder="Logo path" v-model="rentACar.logoPath">
 	  
@@ -75,14 +80,19 @@ Vue.component("create-rentACar",
 	        	this.errorMessages.endTime = "Please select end time.";
       		}
       		
-      		if (!this.rentACar.locationId) {
+      		if (!this.rentACar.address) {
 	        	valid = false;
-	        	this.errorMessages.locationId = "Please select a location.";
+	        	this.errorMessages.locationId = "Please enter address.";
+      		}
+      		
+      		if (!this.rentACar.city) {
+	        	valid = false;
+	        	this.errorMessages.locationId = "Please enter city.";
       		}
       		
       		if (!this.rentACar.logoPath) {
 	        	valid = false;
-	        	this.errorMessages.logoPath = "Please select a location.";
+	        	this.errorMessages.logoPath = "Please enter logo path.";
       		}
       		
       		if (valid){
@@ -92,7 +102,8 @@ Vue.component("create-rentACar",
 					  "startTime" : this.rentACar.startTime,
 					  "endTime" : this.rentACar.startTime,
 					  "status" : 'OPEN',
-					  "locationId" : this.rentACar.locationId,
+					  "address" : this.rentACar.address,
+					  "city" : this.rentACar.city,
 					  "logoPath" : this.rentACar.logoPath,
 					  "grade" : 0
 					  

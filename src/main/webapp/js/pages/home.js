@@ -1,72 +1,65 @@
 Vue.component("home", {
   data() {
     return {
-      rentACars: null,
-      locations: {}, // Mapping of locationId to location information
-      sortName: true,
-      sortGrade : true,
-      showOnlyOpenStatus: false,
-      searchQueryName: "",
-      searchQueryGrade: "",
-      searchQueryLocation: "",
+		rentACars: null,
+		sortName: true,
+		sortGrade : true,
+		sortLocation : true,
+		showOnlyOpenStatus: false,
+	  	searchQueryName: "",
+	  	searchQueryGrade: "",
+	  	searchQueryLocation: ""
     };
   },
 
   template: `
     <div id="app">
-      <h2>Rent a Cars</h2>
+      <h2>RENT A CAR OBJECTS</h2>
 
       <!-- Search input -->
-      <input type="text" v-model="searchQueryName" @input="searchByName" placeholder="Search by name">
-      <input type="text" v-model="searchQueryGrade" @input="searchByGrade" placeholder="Search by grade">
-      <input type="text" v-model="searchQueryGrade" @input="searchByLocation" placeholder="Search by location">
+      <input type="text" v-model="searchQueryName" placeholder="Search by name">
+      <input type="text" v-model="searchQueryGrade" placeholder="Search by grade">
+      <input type="text" v-model="searchQueryLocation" placeholder="Search by location">
 
 	  <br>
 
       <!-- Sort button -->
       <button @click="sortBy('name')" class="sort-button">Sort by Name</button>
       <button @click="sortByGrade('grade')" class="sort-button">Sort by Grade</button>
+      <button @click="sortByLocation('address')" class="sort-button">Sort by Location</button>
       <button @click="filterByOpenStatus" class="sort-button">Show only open</button>
 
       <div v-for="rentACar in filteredRentACars" class="list-item">
         <img :src="rentACar.logoPath" alt="logo" class="logo">
         <h3>{{ rentACar.name }}</h3>
         <p>Working hours: {{ rentACar.startTime }} - {{ rentACar.endTime }}</p>
-        <p>Location: {{ getLocationInfo(rentACar.locationId) }}</p>
+        <p>Location: {{ rentACar.address }}, {{ rentACar.city }}</p>
         <p>Grade: {{ rentACar.grade }}</p>
       </div>
     </div>
   `,
 
   mounted() {
-    // Fetch rentACars data
-    axios.get("rest/rentACars/getAll").then(response => {
-      this.rentACars = response.data;
-      // Fetch location information and create the locations mapping
-      axios.get("rest/locations/getAll").then(locationsResponse => {
-        this.locations = locationsResponse.data.reduce((map, location) => {
-          map[location.locationId] = `${location.address}, ${location.city}`;
-          return map;
-        }, {});
-        
-        console.log("Locations Mapping:", this.locations); // Debugging output
-        
-        this.rentACars.sort((a, b) => {
-          const statusA = a.status;
-          const statusB = b.status;
+  // Fetch rentACars data
+  axios.get("rest/rentACars/getAll").then(response => {
+    this.rentACars = response.data;
 
-          if (statusA === 'OPEN' && statusB !== 'OPEN') {
-            return -1;
-          } else if (statusA !== 'OPEN' && statusB === 'OPEN') {
-            return 1;
-          }
+    this.rentACars.sort((a, b) => {
+      const statusA = a.status;
+      const statusB = b.status;
 
-          // Default sorting for other fields (e.g., 'name')
-          return this.sortName ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-        });
-      });
+      if (statusA === 'OPEN' && statusB !== 'OPEN') {
+        return -1;
+      } else if (statusA !== 'OPEN' && statusB === 'OPEN') {
+        return 1;
+      }
+
+      // Default sorting for other fields (e.g., 'name')
+      return this.sortName ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
     });
-  },
+  });
+},
+
 
   computed: {
     filteredRentACars() {
@@ -80,18 +73,17 @@ Vue.component("home", {
         return this.rentACars.filter(rentACar => rentACar.grade === queryGrade);
       }
       
+      if (this.searchQueryLocation) {
+        const query1 = this.searchQueryLocation.toLowerCase();
+        return (this.rentACars.filter(rentACar => rentACar.address.toLowerCase().includes(query1)) || 
+        	this.rentACars.filter(rentACar => rentACar.city.toLowerCase().includes(query1)));
+      }
+      
       return this.rentACars;
     },
   },
 
   methods: {
-    getLocationInfo(locationId) {
-      return this.locations[locationId] || "Novosadska 1, Novi Sad";
-    },
-
-    searchByName() {
-      // Handle search by name
-    },
 
     sortBy(field) {
       // Sorting logic
@@ -104,6 +96,19 @@ Vue.component("home", {
 
       // Toggle the sorting direction
       this.sortName = !this.sortName;
+    },
+    
+    sortByLocation(address) {
+      // Sorting logic
+      this.rentACars.sort((a, b) => {
+        const aValue = a[address].toLowerCase();
+        const bValue = b[address].toLowerCase();
+
+        return this.sortLocation ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+      });
+
+      // Toggle the sorting direction
+      this.sortLocation = !this.sortLocation;
     },
     
     sortByGrade(number) {

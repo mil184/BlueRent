@@ -11,7 +11,8 @@ public class RentACar {
 	private LocalTime startTime;
 	private LocalTime endTime;
 	private Status status;
-	private int locationId;
+	private String address;
+	private String city;
 	private Location location;
 	private String logoPath;
 	private double grade;
@@ -39,11 +40,17 @@ public class RentACar {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public int getLocationId() {
-		return locationId;
+	public String getAddress() {
+		return address;
 	}
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 	public Location getLocation() {
 		return location;
@@ -64,13 +71,14 @@ public class RentACar {
 		this.grade = grade;
 	}
 	public RentACar() {}
-	public RentACar(String name, LocalTime startTime, LocalTime endTime, int locationId,
+	public RentACar(String name, LocalTime startTime, LocalTime endTime, String address, String city,
 			String logoPath, double grade) {
 		super();
 		this.name = name;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.locationId = locationId;
+		this.address = address;
+		this.city = city;
 		this.logoPath = logoPath;
 		this.grade = grade;
 		
@@ -81,9 +89,10 @@ public class RentACar {
 			this.status = Status.CLOSED;
 		}
 	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(endTime, grade, location, locationId, logoPath, name, startTime, status);
+		return Objects.hash(address, city, endTime, grade, location, logoPath, name, startTime, status);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -94,18 +103,21 @@ public class RentACar {
 		if (getClass() != obj.getClass())
 			return false;
 		RentACar other = (RentACar) obj;
-		return Objects.equals(endTime, other.endTime)
+		return Objects.equals(address, other.address) && Objects.equals(city, other.city)
+				&& Objects.equals(endTime, other.endTime)
 				&& Double.doubleToLongBits(grade) == Double.doubleToLongBits(other.grade)
-				&& Objects.equals(location, other.location) && locationId == other.locationId
-				&& Objects.equals(logoPath, other.logoPath) && Objects.equals(name, other.name)
-				&& Objects.equals(startTime, other.startTime) && status == other.status;
+				//&& Objects.equals(location, other.location) 
+				&& Objects.equals(logoPath, other.logoPath)
+				&& Objects.equals(name, other.name) && Objects.equals(startTime, other.startTime)
+				&& status == other.status;
 	}
 	@Override
 	public String toString() {
 		return "RentACar [name=" + name + ", startTime=" + startTime + ", endTime=" + endTime + ", status=" + status
-				+ ", locationId=" + locationId + ", logoPath=" + logoPath + ", grade="
-				+ grade + "]";
+				+ ", address=" + address + ", city=" + city + ", location=" + location + ", logoPath=" + logoPath
+				+ ", grade=" + grade + "]";
 	}
+	
 	
 	
 }

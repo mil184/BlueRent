@@ -79,7 +79,8 @@ public class RentACarDAO {
 	                String startTime = st.nextToken().trim();
 	                String endTime = st.nextToken().trim();
 	                String status = st.nextToken().trim();
-	                String locationId = st.nextToken().trim();
+	                String address = st.nextToken().trim();
+	                String city = st.nextToken().trim();
 	                String logoPath = st.nextToken().trim();
 	                String grade = st.nextToken().trim();
 
@@ -88,7 +89,7 @@ public class RentACarDAO {
 	                LocalTime _endTime = LocalTime.parse(endTime, formatter);
 	                double _grade = Double.parseDouble(grade);
 
-	                RentACar rentACar = new RentACar(name, _startTime, _endTime, Integer.parseInt(locationId), logoPath, _grade);
+	                RentACar rentACar = new RentACar(name, _startTime, _endTime, address, city, logoPath, _grade);
 	                rentACars.put(name, rentACar);
 	                rentACarList.add(rentACar);
 	            }
@@ -109,7 +110,8 @@ public class RentACarDAO {
                     .append(rentACar.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append(";")
                     .append(rentACar.getEndTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append(";")
                     .append(rentACar.getStatus()).append(";")
-                    .append(rentACar.getLocationId()).append(";")
+                    .append(rentACar.getAddress()).append(";")
+                    .append(rentACar.getCity()).append(";")
                     .append(rentACar.getLogoPath()).append(";")
                     .append(rentACar.getGrade());
 

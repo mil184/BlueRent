@@ -23,7 +23,8 @@ Vue.component("rentACarPage",{
         		<br>
         		
         		<p>Working hours: {{ rentACar.startTime }} - {{ rentACar.endTime }}</p>
-        		<p>Location: </p>
+        		<p>Status: {{ rentACar.status }}</p>
+        		<p>Location: {{ rentACar.address }}, {{ rentACar.city }}</p>
         		<p>Grade: {{ rentACar.grade }}</p>
         		
 	    	

@@ -1,3 +1,4 @@
-RentACar124;05:27:00;22:27:00;OPEN;1;https://en.wikipedia.org/static/images/icons/wikipedia.png;3.0;
-KupujemProdajem;00:01:01;03:37:00;OPEN;1;https://en.wikipedia.org/static/images/icons/wikipedia.png;2.0;
-Kondpanija;10:37:00;11:37:00;OPEN;1;https://en.wikipedia.org/static/images/icons/wikipedia.png;1.0;
+RentACar124;05:27:00;22:27:00;OPEN;Novosadska 1;Novi Sad;https://en.wikipedia.org/static/images/icons/wikipedia.png;3.0;
+KupujemProdajem;00:01:01;03:37:00;OPEN;Prigrevacka 5;Apatin;https://en.wikipedia.org/static/images/icons/wikipedia.png;2.0;
+Kondpanija;10:37:00;11:37:00;OPEN;Zrenjaninska 1;Zrenjanin;https://en.wikipedia.org/static/images/icons/wikipedia.png;1.0;
+ABC;04:16:00;04:16:00;OPEN;Loznicka 41;Zrenjanin;https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Generic_Camera_Icon.svg/150px-Generic_Camera_Icon.svg.png;0.0

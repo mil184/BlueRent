@@ -1,0 +1,3 @@
+0;ABC;1;1.0;da;
+1;ABC;1;1.0;dsa;
+2;KupujemProdajem;1;1.0;dsawww;

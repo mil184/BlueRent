@@ -5,6 +5,7 @@ const EditUser = {template: "<editUser></editUser>"}
 const CreateRentACar = { template : "<create-rentACar></create-rentACar>" }
 const HomePage = { template : "<home></home>" }
 const RentACarPage = { template : "<rentACarPage></rentACarPage>"}
+const CreateComment = { template : "<create-comment></create-comment>"}
 
 const router = new VueRouter({
 	mode: 'hash',  
@@ -14,6 +15,7 @@ const router = new VueRouter({
 		{ path : "/home", component : HomePage },
 		{ path : "/rentACars/create", component: CreateRentACar},
 		{ path : "/rentACars/:name", component: RentACarPage},
+		{ path : "/createComment", component: CreateComment},
         {path : "/:username", component: UserPage},
         {path : "/:username/edit", component: EditUser}
         

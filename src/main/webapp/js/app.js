@@ -22,7 +22,7 @@ const router = new VueRouter({
 		{ path : "/rentACars/:name", component: RentACarPage},
 		{ path : "/createComment", component: CreateComment},
         {path : "/:username", component: UserPage},
-        {path : "/:username/edit", component: EditUser}
+        {path : "/:username/edit", component: EditUser},
         {path : "/:username", component: UserPage},
         {path : "/:username/edit", component: EditUser},
         {path : "/:username/adminPage", component: AdminPage},

@@ -56,9 +56,10 @@ public class RentACarService {
 	@Path("/getRentACar/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RentACar getByName(@PathParam ("name") String name) {
-		RentACarDAO rentACarDAO = (RentACarDAO) ctx.getAttribute("rentACarDAO");
-		return RentACarDAO.findByName(name);
+	public RentACar getByName(@PathParam("name") String name) {
+	    RentACarDAO rentACarDAO = (RentACarDAO) ctx.getAttribute("rentACarDAO");
+	    return rentACarDAO.findByName(name);
 	}
+
 	
 }

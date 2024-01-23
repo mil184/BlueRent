@@ -9,19 +9,29 @@
   margin-bottom: 20px;
 }
 
+.sort-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
 .filter-options {
   margin-bottom: 20px;
 }
 
-.user-list {
-  list-style-type: none;
-  padding: 0;
+/* Dodajte stilove za tabelu i njene elemente */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.user-item {
+.user-table th, .user-table td {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f9f9f9;
+  padding: 8px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
 }

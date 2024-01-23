@@ -9,10 +9,10 @@ Vue.component("create-comment", {
       },
       companies: [], // Array to store the list of companies
       errorMessages: {
-        companyName: "Please select a company",
-        userId: "Please enter id",
-        grade: "Please enter grade",
-        text: "Please enter text",
+        companyName: " ",
+        userId: " ",
+        grade: " ",
+        text: " ",
       },
     };
   },
@@ -27,7 +27,7 @@ Vue.component("create-comment", {
 
   template: `
     <div class="create-container">
-      <h2>CREATE COMMENT2</h2>
+      <h2>CREATE COMMENT</h2>
       <form class="login-form" @submit.prevent="tryCreate">
       
         <p>Enter grade:</p>
@@ -56,10 +56,12 @@ Vue.component("create-comment", {
 
       if (!this.comment.grade) {
         valid = false;
+        this.errorMessages.grade = "Please enter grade.";
       }
 
       if (!this.comment.text) {
         valid = false;
+        this.errorMessages.text = "Please enter text.";
       }
 
       if (!this.comment.companyName) {

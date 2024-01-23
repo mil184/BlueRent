@@ -118,3 +118,32 @@ button:hover {
     border-radius: 8px;
     position: relative;
 }
+
+.login-form select {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    background-color: #fff; /* Background color for the select */
+    color: #3498db; /* Text color for the select */
+}
+
+.login-form select:hover {
+    border-color: #2980b9;
+}
+
+.login-form select:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.login-form select::after {
+    content: '\25BC'; 
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #3498db;
+}

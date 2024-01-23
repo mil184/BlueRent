@@ -100,4 +100,21 @@ button:hover {
 
 .sort-button:hover {
   background-color: #2980b9;
+}
     
+.centered-div {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center; /* Optional: If you want to center the content horizontally */
+}
+
+.view-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    position: relative;
+}

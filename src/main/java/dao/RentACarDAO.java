@@ -68,8 +68,6 @@ public class RentACarDAO {
 	    
 	    try {
 	        while ((line = in.readLine()) != null) {
-	        	System.out.println("readrentacars");
-	        	System.out.println(line);
 	            line = line.trim();
 	            if (line.equals("") || line.startsWith("#"))
 	                continue;
@@ -93,7 +91,6 @@ public class RentACarDAO {
 	                RentACar rentACar = new RentACar(name, _startTime, _endTime, Integer.parseInt(locationId), logoPath, _grade);
 	                rentACars.put(name, rentACar);
 	                rentACarList.add(rentACar);
-	                System.out.println(rentACar);
 	            }
 	        }
 	    } catch (Exception ex) {

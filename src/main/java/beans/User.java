@@ -71,7 +71,7 @@ public class User {
 		this.lastName = lastName;
 		this.gender = gender;
 		this.dateOfBirth = dateOfBirth;
-		this.role = "Kupac";
+		this.role = role;
 	}
 	@Override
 	public int hashCode() {

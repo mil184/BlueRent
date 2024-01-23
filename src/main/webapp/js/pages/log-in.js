@@ -54,10 +54,12 @@ template:
         );
 
         if (foundUser) {
-			
-          this.$router.push("/" + foundUser.username);
-          
-        } else {
+		 if (foundUser.role === 'Admin') {
+			 this.$router.push("/" + foundUser.username + "/adminPage");
+			 } else {
+				 this.$router.push("/" + foundUser.username);
+			 }
+		 } else {
 
           this.errorMessages.username = "Invalid username or password.";
         }

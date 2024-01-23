@@ -53,7 +53,7 @@ public class UserService {
 	@Path("/getRegistered")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Collection<User> getRegistersUsers(){
+	public Collection<User> getRegisteredUsers(){
 		
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		return userDAO.findAll();

@@ -8,6 +8,7 @@ Vue.component("create-comment", {
         text: null,
       },
       companies: [], // Array to store the list of companies
+      comments: [],
       errorMessages: {
         companyName: " ",
         userId: " ",
@@ -21,6 +22,12 @@ Vue.component("create-comment", {
     axios.get('rest/rentACars/getAll')
       .then(response => {
         this.companies = response.data;
+      })
+      .catch(error => console.error(error));
+      
+      axios.get('rest/comments/getAll')
+      .then(response => {
+        this.comments = response.data;
       })
       .catch(error => console.error(error));
   },
@@ -43,6 +50,8 @@ Vue.component("create-comment", {
         <select v-model="comment.companyName">
           <option v-for="company in companies">{{ company.name }}</option>
         </select>
+        
+        <p>comment number1: </p>
   
         <input type="submit" value="Create">
       </form>
@@ -76,8 +85,9 @@ Vue.component("create-comment", {
           "text": this.comment.text
         })
         .then(response => {
-          // Handle success if needed
-          console.log(response.data);
+			console.log(response.data);
+			
+			axios.put('rest/rentACars/updateGrade/' + this.comment.companyName).catch(error => console.error(error));
         })
         .catch(error => console.error(error));
       }

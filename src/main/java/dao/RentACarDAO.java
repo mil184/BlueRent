@@ -42,6 +42,7 @@ public class RentACarDAO {
 	
 	public void Delete(String name) {
 		rentACars.remove(name);
+		rewriteFile();
 	}
 	
 	public RentACarDAO(String path) {
@@ -126,7 +127,50 @@ public class RentACarDAO {
 		return rentACarList;
 	}
 	
-	// public RentACar Update(RentACar rentACar)
-	
-	// private void rewriteRentACarsFile()
+	public RentACar update(RentACar updatedRentACar) {
+	    RentACar rentACarToUpdate = this.findByName(updatedRentACar.getName());
+
+	    if (rentACarToUpdate != null) {
+	        rentACars.remove(updatedRentACar.getName()); // Delete the line containing the found user
+
+	        RentACar newRentACar = new RentACar(
+	        	updatedRentACar.getName(),	
+	        	updatedRentACar.getStartTime(),	
+	        	updatedRentACar.getEndTime(),	
+	        	updatedRentACar.getAddress(),	
+	        	updatedRentACar.getCity(),	
+	        	updatedRentACar.getLogoPath(),	
+	        	updatedRentACar.getGrade());
+
+	        rentACars.put(updatedRentACar.getName(), newRentACar);
+
+	        rewriteFile();
+
+	        return newRentACar;
+	    }
+
+	    return null; // User not found
+	}
+
+	private void rewriteFile() {
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.path))) {
+	        for (RentACar rentACar : rentACars.values()) {
+	            StringBuilder line = new StringBuilder();
+
+	            line.append(rentACar.getName()).append(";")
+                .append(rentACar.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append(";")
+                .append(rentACar.getEndTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"))).append(";")
+                .append(rentACar.getStatus()).append(";")
+                .append(rentACar.getAddress()).append(";")
+                .append(rentACar.getCity()).append(";")
+                .append(rentACar.getLogoPath()).append(";")
+                .append(rentACar.getGrade()).append(";");
+
+	            writer.write(line.toString());
+	            writer.newLine();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 }

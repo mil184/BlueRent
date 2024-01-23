@@ -33,6 +33,35 @@ public class CommentDAO {
 		return comments.containsKey(id) ? comments.get(id) : null;
 	}
 	
+	public Collection<Comment> findAllByCompanyName(String name) {
+	    Collection<Comment> matchingComments = new ArrayList<>();
+
+	    for (Comment comment : findAll()) {
+	        if (comment.getCompanyName().equals(name)) {
+	            matchingComments.add(comment);
+	        }
+	    }
+
+	    return matchingComments;
+	}
+	
+	public double getAverageGrade(String companyName)
+	{	
+		double sum = 0;
+		int count = 0;
+		for (Comment comment : findAllByCompanyName(companyName)) {
+				sum += comment.getGrade();
+				count += 1;
+	        }
+	
+		if (count == 0) {
+			return 0;
+		}
+		
+		return sum/count;	
+	}
+
+	
 	public Comment Save(Comment comment) {
 		Integer maxId = -1;
 		for (Integer id : comments.keySet()) {

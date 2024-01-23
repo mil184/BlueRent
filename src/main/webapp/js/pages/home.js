@@ -5,6 +5,7 @@ Vue.component("home", {
       locations: {}, // Mapping of locationId to location information
       sortName: true,
       sortGrade : true,
+      showOnlyOpenStatus: false,
       searchQueryName: "",
       searchQueryGrade: "",
       searchQueryLocation: "",
@@ -25,6 +26,7 @@ Vue.component("home", {
       <!-- Sort button -->
       <button @click="sortBy('name')" class="sort-button">Sort by Name</button>
       <button @click="sortByGrade('grade')" class="sort-button">Sort by Grade</button>
+      <button @click="filterByOpenStatus" class="sort-button">Show only open</button>
 
       <div v-for="rentACar in filteredRentACars" class="list-item">
         <img :src="rentACar.logoPath" alt="logo" class="logo">
@@ -116,5 +118,34 @@ Vue.component("home", {
       // Toggle the sorting direction
       this.sortGrade = !this.sortGrade;
     },
+    
+    filterByOpenStatus() {
+	  // Toggle the showOnlyOpenStatus flag
+	  this.showOnlyOpenStatus = !this.showOnlyOpenStatus;
+	
+	  // If showOnlyOpenStatus is true, reapply the filtering
+	  if (this.showOnlyOpenStatus) {
+	    this.rentACars = this.rentACars.filter(rentACar => rentACar.status === 'OPEN');
+	  } else {
+	    // If showOnlyOpenStatus is false, reset the original data
+	    axios.get("rest/rentACars/getAll").then(response => {
+	      this.rentACars = response.data;
+	      // Sort by status and move 'OPEN' status to the top
+	      this.rentACars.sort((a, b) => {
+	        const statusA = a.status;
+	        const statusB = b.status;
+	
+	        if (statusA === 'OPEN' && statusB !== 'OPEN') {
+	          return -1;
+	        } else if (statusA !== 'OPEN' && statusB === 'OPEN') {
+	          return 1;
+	        }
+	
+	        // Default sorting for other fields (e.g., 'name')
+	        return this.sortName ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+	      });
+	    });
+  }
+},
   },
 });

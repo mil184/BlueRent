@@ -47,7 +47,7 @@ public class RentACarDAO {
 	public RentACarDAO(String path) {
 		BufferedReader in = null;
 		try {
-			File file = new File(path);
+			File file = new File(this.path);
 			in = new BufferedReader(new FileReader(file));
 			readRentACars(in);
 		} catch (Exception e) {
@@ -65,15 +65,18 @@ public class RentACarDAO {
 	
 	private void readRentACars(BufferedReader in) {
 	    String line;
+	    
 	    try {
 	        while ((line = in.readLine()) != null) {
+	        	System.out.println("readrentacars");
+	        	System.out.println(line);
 	            line = line.trim();
 	            if (line.equals("") || line.startsWith("#"))
 	                continue;
 
 	            StringTokenizer st = new StringTokenizer(line, ";");
 
-	            if (st.countTokens() >= 7) {
+	            if (st.countTokens() <= 8) {
 	                String name = st.nextToken().trim();
 	                String startTime = st.nextToken().trim();
 	                String endTime = st.nextToken().trim();
@@ -85,8 +88,9 @@ public class RentACarDAO {
 	                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	                LocalTime _startTime = LocalTime.parse(startTime, formatter);
 	                LocalTime _endTime = LocalTime.parse(endTime, formatter);
+	                double _grade = Double.parseDouble(grade);
 
-	                RentACar rentACar = new RentACar(name, _startTime, _endTime, Integer.parseInt(locationId), logoPath, Double.parseDouble(grade));
+	                RentACar rentACar = new RentACar(name, _startTime, _endTime, Integer.parseInt(locationId), logoPath, _grade);
 	                rentACars.put(name, rentACar);
 	                rentACarList.add(rentACar);
 	                System.out.println(rentACar);
@@ -99,7 +103,7 @@ public class RentACarDAO {
 	
 	public void writeRentACar(RentACar rentACar) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.path, true))) {
 
                 StringBuilder line = new StringBuilder();
 
@@ -110,7 +114,7 @@ public class RentACarDAO {
                     .append(rentACar.getStatus()).append(";")
                     .append(rentACar.getLocationId()).append(";")
                     .append(rentACar.getLogoPath()).append(";")
-                    .append(rentACar.getGrade()).append(";");
+                    .append(rentACar.getGrade());
 
                 writer.write(line.toString());
                 writer.newLine();

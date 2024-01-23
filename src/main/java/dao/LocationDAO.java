@@ -23,6 +23,8 @@ public class LocationDAO {
 	private ArrayList<Location> locationList = new ArrayList<Location>();
 	private String realPath;
 	
+	String path = System.getProperty("user.dir") + "\\src\\main\\csv\\locations.txt";
+	
 	public Collection<Location> findAll()
 	{
 		return locations.values();
@@ -55,11 +57,9 @@ public class LocationDAO {
 	}
 	
 	public LocationDAO(String path) {
-		realPath = path + "locations.txt";
-		System.out.println(realPath);
 		BufferedReader in = null;
 		try {
-			File file = new File(path + "/locations.txt");
+			File file = new File(this.path);
 			in = new BufferedReader(new FileReader(file));
 			readLocations(in);
 		} catch (Exception e) {
@@ -107,7 +107,7 @@ public class LocationDAO {
 
     public void writeLocation(Location location) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.path, true))) {
 
                 StringBuilder line = new StringBuilder();
 

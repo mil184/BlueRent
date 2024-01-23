@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Collection;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +40,15 @@ public class RentACarService {
 		return rentACarDAO.Save(rentACar);
 	}
 
+	@GET
+	@Path("/getAll")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection<RentACar> getAll(){
+		RentACarDAO rentACarDAO = (RentACarDAO) ctx.getAttribute("rentACarDAO");
+		return rentACarDAO.findAll();
+	}
+	
 	
 	
 }

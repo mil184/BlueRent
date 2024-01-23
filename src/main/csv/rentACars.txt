@@ -1,2 +1,3 @@
-obj;22:27:00;22:27:00;OPEN;1;logo path;0.0;
-obj1;23:37:00;23:37:00;OPEN;1;rrr;0.0;
+RentACar124;05:27:00;22:27:00;OPEN;1;https://en.wikipedia.org/static/images/icons/wikipedia.png;3.0;
+KupujemProdajem;00:01:01;03:37:00;OPEN;1;https://en.wikipedia.org/static/images/icons/wikipedia.png;2.0;
+Kondpanija;10:37:00;11:37:00;OPEN;1;https://en.wikipedia.org/static/images/icons/wikipedia.png;1.0;

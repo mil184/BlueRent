@@ -72,7 +72,7 @@ public class RentACar {
 		this.endTime = endTime;
 		this.locationId = locationId;
 		this.logoPath = logoPath;
-		this.grade = 0;
+		this.grade = grade;
 		
 		if(LocalTime.now().compareTo(this.startTime) > 0 && LocalTime.now().compareTo(this.endTime) < 0) {
 			this.status = Status.OPEN;

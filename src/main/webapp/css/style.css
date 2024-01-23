@@ -147,3 +147,24 @@ button:hover {
     font-size: 18px;
     color: #3498db;
 }
+
+.comments {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-top: 20px; /* Add margin-top to create space between sections */
+}
+
+.comments p {
+  color: #777;
+}
+
+.comments div {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+}

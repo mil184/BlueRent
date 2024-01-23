@@ -14,7 +14,7 @@ Vue.component("home", {
 
   template: `
     <div id="app">
-      <h2>RENT A CAR OBJECTS</h2>
+      <h2>RENT A CAR OBJECTS1</h2>
 
       <!-- Search input -->
       <input type="text" v-model="searchQueryName" placeholder="Search by name">
@@ -36,6 +36,7 @@ Vue.component("home", {
         <p>Location: {{ rentACar.address }}, {{ rentACar.city }}</p>
         <p>Grade: {{ rentACar.grade }}</p>
       </div>
+      
     </div>
   `,
 

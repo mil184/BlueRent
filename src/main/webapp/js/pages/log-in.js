@@ -54,13 +54,16 @@ template:
         );
 
         if (foundUser) {
-		 if (foundUser.role === 'Admin') {
-			 this.$router.push("/" + foundUser.username + "/adminPage");
-			 } else {
+			if (foundUser.role === 'Admin') {
+			    this.$router.push("/" + foundUser.username + "/adminPage");
+	        } else  if (foundUser.role === 'Manager') {
+			    this.$router.push("/" + foundUser.username + "/managerPage");
+	        } else  if (foundUser.role === 'Customer') {
+			    this.$router.push("/" + foundUser.username + "/customerPage");
+		    } else {
 				 this.$router.push("/" + foundUser.username);
-			 }
-		 } else {
-
+		    }
+	   } else {
           this.errorMessages.username = "Invalid username or password.";
         }
       }

@@ -4,6 +4,8 @@ const UserPage = {template: "<userPage></userPage>"}
 const EditUser = {template: "<editUser></editUser>"}
 const AdminPage = {template: "<adminPage></adminPage>"}
 const RegisteredUsers = {template: "<registeredUsers></registeredUsers>"}
+const ManagerPage = {template: "<managerPage></managerPage>"}
+const CustomerPage = {template: "<customerPage></customerPage>"}
 
 const router = new VueRouter({
 	mode: 'hash',  
@@ -13,7 +15,9 @@ const router = new VueRouter({
 		{path : "/registeredUsers", component: RegisteredUsers},
         {path : "/:username", component: UserPage},
         {path : "/:username/edit", component: EditUser},
-        {path : "/:username/adminPage", component: AdminPage}
+        {path : "/:username/adminPage", component: AdminPage},
+        {path : "/:username/managerPage", component: ManagerPage},
+        {path : "/:username/customerPage", component: CustomerPage}
         ]
 	
 });

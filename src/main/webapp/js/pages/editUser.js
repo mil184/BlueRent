@@ -14,7 +14,6 @@ Vue.component("editUser", {
   },
   template: `
     <div>
-      <h3>HELLO {{ user.username }}</h3>
       <form class="login-form" @submit="TryEdit">
   
       <input type="text" v-model="user.username" value="text">

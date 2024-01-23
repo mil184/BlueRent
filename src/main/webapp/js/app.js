@@ -6,19 +6,28 @@ const CreateRentACar = { template : "<create-rentACar></create-rentACar>" }
 const HomePage = { template : "<home></home>" }
 const RentACarPage = { template : "<rentACarPage></rentACarPage>"}
 const CreateComment = { template : "<create-comment></create-comment>"}
+const AdminPage = {template: "<adminPage></adminPage>"}
+const RegisteredUsers = {template: "<registeredUsers></registeredUsers>"}
+const ManagerPage = {template: "<managerPage></managerPage>"}
+const CustomerPage = {template: "<customerPage></customerPage>"}
 
 const router = new VueRouter({
 	mode: 'hash',  
 	routes: [
 		{path : "/login", component: LogIn},
 		{path : "/register", component: Register},
+		{path : "/registeredUsers", component: RegisteredUsers},
 		{ path : "/home", component : HomePage },
 		{ path : "/rentACars/create", component: CreateRentACar},
 		{ path : "/rentACars/:name", component: RentACarPage},
 		{ path : "/createComment", component: CreateComment},
         {path : "/:username", component: UserPage},
         {path : "/:username/edit", component: EditUser}
-        
+        {path : "/:username", component: UserPage},
+        {path : "/:username/edit", component: EditUser},
+        {path : "/:username/adminPage", component: AdminPage},
+        {path : "/:username/managerPage", component: ManagerPage},
+        {path : "/:username/customerPage", component: CustomerPage}
         ]
 	
 });

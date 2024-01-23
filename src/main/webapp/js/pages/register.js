@@ -118,7 +118,7 @@ methods:
 					 "firstName" : this.user.firstName,
 					 "lastName" : this.user.lastName,
 					 "gender" : this.user.gender,
-					 "role" : 'Kupac',
+					 "role" : 'Customer',
 					 "dateOfBirth" : this.user.dateOfBirth
 					}).catch(error => 
 		    			console.error(error));

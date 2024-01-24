@@ -1,5 +1,8 @@
-aa;aa;aa;aa;male;02-01-2024;Customer;0.0;
+nina;nina;Nikolina;Nikic;female;02-01-2000;Customer;0.0;
 admin;admin;Sara;Saric;female;11-12-1999;Admin;0.0;
-dzoni;dzoni;nikola;nikolic;male;02-02-1994;Manager;3000.0;
-jec;jec;jelena;jelena;female;01-11-2001;Customer;10.0;
-ac;ac;aca;aca;male;12-12-1998;Customer;0.0;
+dzoni;dzoni;Nikola;Nikolic;male;02-02-1994;Customer;3000.0;
+men;men;Aleksa;Aleksic;male;01-11-1991;Manager;100.0;
+aca;aca;Aca;Ankic;male;12-12-1998;Customer;0.0;
+mil;mil;Milica;Milosecevic;female;01-08-2001;Customer;4500;
+maki;maki;Marko;Markovic;male;23-07-1996;Customer;2000;
+djela;djela;Andjela;Andjelic;female;18-09-1998;Customer;2500;

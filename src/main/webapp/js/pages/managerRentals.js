@@ -10,6 +10,11 @@ Vue.component("managerRentals", {
     sortPrice: true,
     sortStartDate: true,
     sortEndDate: true,
+    showChangeStatusModal: false,
+    selectedRental: null,
+    selectedStatus: "",
+    availableStatuses: ["approved", "declined", "taken", "returned"],
+    rejectionReason: ""
   };
 },
 
@@ -37,6 +42,7 @@ template: `
           <th>End Date</th>
           <th>Price</th>
           <th>Status</th>
+          <th>Change Status </th>
         </tr>
       </thead>
       <tbody>
@@ -45,9 +51,21 @@ template: `
           <td>{{ rental.endDate }}</td>
           <td>{{ rental.price }}</td>
           <td>{{ rental.status }}</td>
+          <td>
+           <button @click="openChangeStatusModal(rental)">Change Status</button>
+          </td>
         </tr>
       </tbody>
     </table>
+    <!-- Modal za promenu statusa -->
+    <div v-if="showChangeStatusModal">
+      <select v-model="selectedStatus">
+        <option v-for="status in availableStatuses" :key="status">{{ status }}</option>
+      </select>
+      
+      <textarea v-if="selectedStatus === 'declined'" v-model="rejectionReason" placeholder="Enter the reason for the rejection"></textarea>
+      <button @click="confirmStatusChange">Confirm</button>
+    </div>
  </div>
 `,
 
@@ -59,8 +77,8 @@ mounted() {
 },
 
 methods: {
-  filterRentals() {
-    this.filteredRentals = this.allRentals.filter(rental => {
+   filterRentals() {
+      this.filteredRentals = this.allRentals.filter(rental => {
       const priceMatches = (this.minPrice === null || rental.price >= this.minPrice) &&
                            (this.maxPrice === null || rental.price <= this.maxPrice);
 
@@ -68,12 +86,11 @@ methods: {
                                (this.maxRentalDate === null || rental.endDate <= this.maxRentalDate);
 
       return priceMatches  && rentalDateMatches;
-    });
+     });
+     this.applyFilters();
+   },
 
-    this.applyFilters();
-  },
-
-    sortBy(field) {
+   sortBy(field) {
       this.filteredRentals = this.filteredRentals.sort((a, b) => {
         const aValue = this.resolveFieldValue(a, field);
         const bValue = this.resolveFieldValue(b, field);
@@ -82,26 +99,77 @@ methods: {
       });
 
       this[field] = !this[field];
-    },
+   },
 
-    applyFilters() {
+   applyFilters() {
       this.sortFilteredUsers();
-    },
+   },
 
-    sortFilteredUsers() {
-    },
+   sortFilteredUsers() {
+   },
 
    resolveFieldValue(rental, field) {
-	   switch (field) {
-		   case 'startDate':
-			   return rental.startDate.toLowerCase();
-           case 'endDate':
-               return rental.endDate.toLowerCase();
-           case 'price':
-               return rental.price.toString().toLowerCase();
-           default:
-               return '';
+	 switch (field) {
+	   case 'startDate':
+		   return rental.startDate.toLowerCase();
+       case 'endDate':
+           return rental.endDate.toLowerCase();
+       case 'price':
+           return rental.price.toString().toLowerCase();
+       default:
+           return '';
+     }
+   },
+    
+   openChangeStatusModal(rental) {
+     this.showChangeStatusModal = true;
+     this.selectedRental = rental;
+   },
+
+   confirmStatusChange() {
+     if (this.selectedRental && this.selectedRental.id && this.selectedStatus) {
+        const isStatusChangeValid = this.isStatusChangeValid();
+
+        if (isStatusChangeValid) {
+           this.selectedRental.status = this.selectedStatus;
+
+           if (this.selectedStatus === 'declined') {
+               this.selectedRental.reason = this.rejectionReason;
+           }
+
+           axios.put(`rest/rentals/edit/${this.selectedRental.id}`, this.selectedRental)
+           .then(response => {
+               console.log('Rental successfully updated:', response.data);
+           })
+           .catch(error => {
+               console.error('Error updating rental status:', error);
+           });
+
+           this.showChangeStatusModal = false;
+           this.selectedRental = null;
+           this.selectedStatus = "";
+           this.rejectionReason = "";
+        } else {
+           console.log('Status change not allowed.');
        }
-    },
+     }
+   },
+
+   isStatusChangeValid() {
+     if (this.selectedStatus === 'taken') {
+        const today = new Date().setHours(0, 0, 0, 0);
+        const rentalStartDate = new Date(this.selectedRental.startDate).setHours(0, 0, 0, 0);
+        
+        if (this.selectedRental.status !== 'approved') {
+           console.log('Previous status must be "approved" to change to "taken".');
+           return false;
+        }
+        
+        return today >= rentalStartDate;
+     } else {
+        return true;
+    }
   },
+
+},
 });

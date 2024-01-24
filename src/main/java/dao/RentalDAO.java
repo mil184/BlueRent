@@ -132,8 +132,10 @@ public class RentalDAO {
                     String username = st.nextToken().trim();
 
                     RentalStatus status = RentalStatus.valueOf(st.nextToken().trim());
+                    
+                    String reason = st.nextToken().trim();
 
-                    Rental rental = new Rental(id, vehicleIdList, rentACarId ,startDate, endDate, duration, price, username, status);
+                    Rental rental = new Rental(id, vehicleIdList, rentACarId ,startDate, endDate, duration, price, username, status, reason);
                     rentalList.add(rental);
                     rentals.put(id, rental);
                 }
@@ -163,9 +165,11 @@ public class RentalDAO {
             line.append(rental.getRentACarId()).append(";");
             line.append(rental.getStartDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
             line.append(rental.getEndDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
+            line.append(rental.getDuration()).append(";");
             line.append(rental.getPrice()).append(";");
             line.append(rental.getUsername()).append(";");
             line.append(rental.getStatus()).append(";");
+            line.append(rental.getReason()).append(";");
 
             writer.write(line.toString());
             writer.newLine();
@@ -183,9 +187,11 @@ public class RentalDAO {
             rentalToUpdate.setRentACarId(updatedRental.getRentACarId());
             rentalToUpdate.setStartDate(updatedRental.getStartDate());
             rentalToUpdate.setEndDate(updatedRental.getEndDate());
+            rentalToUpdate.setDuration(updatedRental.getDuration());
             rentalToUpdate.setPrice(updatedRental.getPrice());
             rentalToUpdate.setUsername(updatedRental.getUsername());
             rentalToUpdate.setStatus(updatedRental.getStatus());
+            rentalToUpdate.setReason(updatedRental.getReason());
             
             rewriteRentalsFile();
 
@@ -216,9 +222,11 @@ public class RentalDAO {
                 line.append(rental.getRentACarId()).append(";");
                 line.append(rental.getStartDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
                 line.append(rental.getEndDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
+                line.append(rental.getDuration()).append(";");
                 line.append(rental.getPrice()).append(";");
                 line.append(rental.getUsername()).append(";");
                 line.append(rental.getStatus()).append(";");
+                line.append(rental.getReason()).append(";");
 
                 writer.write(line.toString());
                 writer.newLine();

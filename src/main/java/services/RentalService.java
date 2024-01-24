@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -61,7 +62,7 @@ public class RentalService {
 	}
 	
 	
-	@POST
+	@PUT
 	@Path("/edit/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -76,6 +77,8 @@ public class RentalService {
 	        foundRental.setEndDate(updatedRental.getEndDate());
 	        foundRental.setPrice(updatedRental.getPrice());
 	        foundRental.setUsername(updatedRental.getUsername());
+	        foundRental.setStatus(updatedRental.getStatus());
+	        foundRental.setReason(updatedRental.getReason());
 	 
 	        Rental rental = rentalDAO.update(foundRental);
 	        return rental;

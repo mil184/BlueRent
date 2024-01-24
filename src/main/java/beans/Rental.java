@@ -18,6 +18,7 @@ public class Rental {
 	private double price;
 	private String username;
 	private RentalStatus status;
+	private String reason;
 	
 	public Rental() {
 		super();
@@ -25,7 +26,7 @@ public class Rental {
 
 	public Rental(String id, ArrayList<Integer> vehicleIds, int rentACarId,
 			LocalDate startDate, LocalDate endDate, int duration, double price, String username,
-			RentalStatus status) {
+			RentalStatus status, String reason) {
 		super();
 		this.id = id;
 		this.vehicleIds = vehicleIds;
@@ -36,6 +37,7 @@ public class Rental {
 		this.price = price;
 		this.username = username;
 		this.status = status;
+		this.reason = reason;
 	}
 
 	public String getId() {
@@ -117,11 +119,19 @@ public class Rental {
 	public void setStatus(RentalStatus status) {
 		this.status = status;
 	}
+	
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(duration, endDate, id, price, rentACarId, startDate, status, username,
-				vehicleIds, vehicles);
+		return Objects.hash(duration, endDate, id, price, reason, rentACarId, startDate, status, username, vehicleIds,
+				vehicles);
 	}
 
 	@Override
@@ -135,7 +145,7 @@ public class Rental {
 		Rental other = (Rental) obj;
 		return duration == other.duration && Objects.equals(endDate, other.endDate) && Objects.equals(id, other.id)
 				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
-				&& Objects.equals(rentACarId, other.rentACarId)
+				&& Objects.equals(reason, other.reason) && rentACarId == other.rentACarId
 				&& Objects.equals(startDate, other.startDate) && status == other.status
 				&& Objects.equals(username, other.username) && Objects.equals(vehicleIds, other.vehicleIds)
 				&& Objects.equals(vehicles, other.vehicles);
@@ -144,8 +154,8 @@ public class Rental {
 	@Override
 	public String toString() {
 		return "Rental [id=" + id + ", vehicles=" + vehicles + ", vehicleIds=" + vehicleIds + ", rentACarId="
-				+ rentACarId + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", duration=" + duration + ", price=" + price + ", username=" + username + ", status=" + status + "]";
+				+ rentACarId + ", startDate=" + startDate + ", endDate=" + endDate + ", duration=" + duration
+				+ ", price=" + price + ", username=" + username + ", status=" + status + ", reason=" + reason + "]";
 	}
 	
 }

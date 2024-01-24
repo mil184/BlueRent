@@ -10,7 +10,7 @@ Vue.component("register",
 				firstName : null,
 				lastName : null, 
 				gender: null,
-				dateOfBirth : null,
+				dateOfBirth : null
 			},
 			
 			confirmationPassword : null,
@@ -119,7 +119,9 @@ methods:
 					 "lastName" : this.user.lastName,
 					 "gender" : this.user.gender,
 					 "role" : 'Customer',
-					 "dateOfBirth" : this.user.dateOfBirth
+					 "dateOfBirth" : this.user.dateOfBirth,
+					 "points": 0.0,
+					 "type": 'Bronze'
 					}).catch(error => 
 		    			console.error(error));
     			}

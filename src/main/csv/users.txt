@@ -1,4 +1,5 @@
-aa;aa;aa;aa;male;02-01-2024;Customer;
-admin;admin;Sara;Saric;female;11-12-1999;Admin;https://play-lh.googleusercontent.com/i1qvljmS0nE43vtDhNKeGYtNlujcFxq72WAsyD2htUHOac57Z9Oiew0FrpGKlEehOvo=w240-h480-rw;0.0;false;
-dzoni;dzoni;nikola;nikolic;male;02-02-1994;Manager;
-jec;jec;jelena;jelena;female;01-11-2001;Customer;
+aa;aa;aa;aa;male;02-01-2024;Customer;0.0;
+admin;admin;Sara;Saric;female;11-12-1999;Admin;0.0;
+dzoni;dzoni;nikola;nikolic;male;02-02-1994;Manager;3000.0;
+jec;jec;jelena;jelena;female;01-11-2001;Customer;10.0;
+ac;ac;aca;aca;male;12-12-1998;Customer;0.0;

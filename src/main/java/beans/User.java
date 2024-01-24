@@ -13,6 +13,30 @@ public class User {
 	private LocalDate dateOfBirth;
 	private String role;
 	private String type;
+	private double points;
+
+	public User() {}
+	
+	public User(String username, String password, String firstName, String lastName, String gender, LocalDate dateOfBirth, String role, double points) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.role = role;
+		this.points = points;
+		
+		if(this.points <= 2000.0) {
+			this.type = "Bronze";
+		} else if(this.points <= 3500.0) {
+			this.type = "Silver";
+		} else {
+			this.type = "Gold";
+		}
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -61,22 +85,20 @@ public class User {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public User() {}
 	
-	public User(String username, String password, String firstName, String lastName, String gender, LocalDate dateOfBirth, String role) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.gender = gender;
-		this.dateOfBirth = dateOfBirth;
-		this.role = role;
+	public double getPoints() {
+		return points;
 	}
+
+	public void setPoints(double points) {
+		this.points = points;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateOfBirth, firstName, gender, lastName, password, role, type, username);
+		return Objects.hash(dateOfBirth, firstName, gender, lastName, password, points, role, type, username);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,16 +109,19 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(firstName, other.firstName)
-				&& gender == other.gender && Objects.equals(lastName, other.lastName)
-				&& Objects.equals(password, other.password) && role == other.role && type == other.type
+				&& Objects.equals(gender, other.gender) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(password, other.password)
+				&& Double.doubleToLongBits(points) == Double.doubleToLongBits(other.points)
+				&& Objects.equals(role, other.role) && Objects.equals(type, other.type)
 				&& Objects.equals(username, other.username);
 	}
+
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", role=" + role + ", type=" + type
-				+ "]";
+				+ ", points=" + points + "]";
 	}
-	
-	
+
+
 }

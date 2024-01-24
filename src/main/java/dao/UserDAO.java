@@ -43,7 +43,7 @@ public class UserDAO {
 		ArrayList<String> usernames = new ArrayList<String>();
 		for(User user : users.values()) 
 		{
-			if (user.getRole().equals("Manager") /*&& !user.getIsBlocked()*/) {
+			if (user.getRole().equals("Manager")) {
 				usernames.add(user.getUsername());
 			}
 		}
@@ -87,10 +87,6 @@ public class UserDAO {
 		}
 	}
 
-	/**
-	 * Cita proizvode iz datoteke i smesta ih u asocijativnu listu proizvoda.
-	 * Kljuc je id proizvoda.
-	 */
 	private void readUsers(BufferedReader in) {
 	    String line;
 	    try {
@@ -108,11 +104,12 @@ public class UserDAO {
 	                String gender = st.nextToken().trim();
 	                String dateOfBirth = st.nextToken().trim();
 	                String role = st.nextToken().trim();
+	                double points = Double.parseDouble(st.nextToken().trim());
 
 	                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	                LocalDate date = LocalDate.parse(dateOfBirth, formatter);
 
-	                User user = new User(username, password, firstName, lastName, gender, date, role);
+	                User user = new User(username, password, firstName, lastName, gender, date, role, points);
 	                users.put(username, user);
 	                userList.add(user);
 	          
@@ -129,24 +126,23 @@ public class UserDAO {
 
                 StringBuilder line = new StringBuilder();
 
-                // Append user data to the line
                 line.append(user.getUsername()).append(";")
                     .append(user.getPassword()).append(";")
                     .append(user.getFirstName()).append(";")
                     .append(user.getLastName()).append(";")
                     .append(user.getGender()).append(";")
                     .append(user.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";")
-                    .append(user.getRole()).append(";");
+                    .append(user.getRole()).append(";")
+                    .append(user.getPoints()).append(";");
 
 
-                // Write the line to the file
                 writer.write(line.toString());
                 writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-	/** Vraca listu proizvoda. */
+
 	public ArrayList<User> getProductList() {
 		return userList;
 	}
@@ -155,9 +151,8 @@ public class UserDAO {
 	    User userToUpdate = this.findUser(updatedUser.getUsername());
 
 	    if (userToUpdate != null) {
-	        users.remove(updatedUser.getUsername()); // Delete the line containing the found user
-
-	        // Create a new User object with updated data
+	        users.remove(updatedUser.getUsername()); 
+	        
 	        User newUser = new User(
 	            updatedUser.getUsername(),
 	            updatedUser.getPassword(),
@@ -165,22 +160,23 @@ public class UserDAO {
 	            updatedUser.getLastName(),
 	            updatedUser.getGender(),
 	            updatedUser.getDateOfBirth(),
-	            updatedUser.getRole()
+	            updatedUser.getRole(),
+	            updatedUser.getPoints()
 	        );
 
-	        users.put(updatedUser.getUsername(), newUser); // Insert the updated user
+	        users.put(updatedUser.getUsername(), newUser);
 	        
 	        for(User user: users.values()) {
 	        	System.out.println(user);
 	        }
 
-	        // Rewrite the entire file with updated user data
+
 	        rewriteUsersFile();
 
 	        return newUser;
 	    }
 
-	    return null; // User not found
+	    return null; 
 	}
 
 	private void rewriteUsersFile() {
@@ -194,7 +190,8 @@ public class UserDAO {
 	                .append(user.getLastName()).append(";")
 	                .append(user.getGender()).append(";")
 	                .append(user.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";")
-	                .append(user.getRole()).append(";");
+	                .append(user.getRole()).append(";")
+	                .append(user.getPoints()).append(";");
 
 	            writer.write(line.toString());
 	            writer.newLine();

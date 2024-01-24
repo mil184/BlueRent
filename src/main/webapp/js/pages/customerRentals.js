@@ -10,7 +10,8 @@ Vue.component("customerRentals", {
     sortPrice: true,
     sortStartDate: true,
     sortEndDate: true,
-    username: null
+    username: null,
+    selectedRental: null,
   };
 },
 
@@ -38,6 +39,7 @@ template: `
           <th>End Date</th>
           <th>Price</th>
           <th>Status</th>
+          <th>Cancel rental</th>
         </tr>
       </thead>
       <tbody>
@@ -46,6 +48,9 @@ template: `
           <td>{{ rental.endDate }}</td>
           <td>{{ rental.price }}</td>
           <td>{{ rental.status }}</td>
+          <td>
+           <button @click="cancelRental(rental)">Cancel the rental</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -105,5 +110,27 @@ methods: {
                return '';
        }
     },
+    
+   cancelRental(rental) {
+	   this.selectedRental = rental;
+       if (this.selectedRental && this.selectedRental.id) {
+          if (this.selectedRental.status === 'processing') {
+             this.selectedRental.status = 'cancelled';
+
+             axios.put(`rest/rentals/edit/${this.selectedRental.id}`, this.selectedRental)
+             .then(response => {
+             console.log('Rental successfully updated:', response.data);
+             })
+             .catch(error => {
+             console.error('Error updating rental status:', error);
+             });
+             this.selectedRental = null;
+       } else {
+          console.log('Order can only be cancelled when it is in processing status.');
+    }
+  }
+},
+
+
   },
 });

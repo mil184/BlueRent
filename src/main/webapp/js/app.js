@@ -10,6 +10,7 @@ const AdminPage = {template: "<adminPage></adminPage>"}
 const RegisteredUsers = {template: "<registeredUsers></registeredUsers>"}
 const ManagerPage = {template: "<managerPage></managerPage>"}
 const CustomerPage = {template: "<customerPage></customerPage>"}
+const CustomerRentals = {template: "<customerRentals></customerRentals>"}
 
 const router = new VueRouter({
 	mode: 'hash',  
@@ -27,7 +28,8 @@ const router = new VueRouter({
         {path : "/:username/edit", component: EditUser},
         {path : "/:username/adminPage", component: AdminPage},
         {path : "/:username/managerPage", component: ManagerPage},
-        {path : "/:username/customerPage", component: CustomerPage}
+        {path : "/:username/customerPage", component: CustomerPage},
+        {path : "/:username/rentals", component: CustomerRentals}
         ]
 	
 });

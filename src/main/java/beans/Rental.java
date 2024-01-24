@@ -11,7 +11,7 @@ public class Rental {
 	private String id;
 	private ArrayList<Vehicle> vehicles;
 	private ArrayList<Integer> vehicleIds;
-	private ArrayList<Integer> rentACarIds;
+	private int rentACarId;
 	private LocalDate  startDate;
 	private LocalDate endDate;
 	private int duration;
@@ -23,13 +23,13 @@ public class Rental {
 		super();
 	}
 
-	public Rental(String id, ArrayList<Integer> vehicleIds, ArrayList<Integer> rentACarIds,
+	public Rental(String id, ArrayList<Integer> vehicleIds, int rentACarId,
 			LocalDate startDate, LocalDate endDate, int duration, double price, String username,
 			RentalStatus status) {
 		super();
 		this.id = id;
 		this.vehicleIds = vehicleIds;
-		this.rentACarIds = rentACarIds;
+		this.rentACarId = rentACarId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.duration = duration;
@@ -62,12 +62,12 @@ public class Rental {
 		this.vehicleIds = vehicleIds;
 	}
 
-	public ArrayList<Integer> getRentACarIds() {
-		return rentACarIds;
+	public int getRentACarId() {
+		return rentACarId;
 	}
 
-	public void setRentACarIds(ArrayList<Integer> rentACarIds) {
-		this.rentACarIds = rentACarIds;
+	public void setRentACarId(int rentACarId) {
+		this.rentACarId = rentACarId;
 	}
 
 	public LocalDate getStartDate() {
@@ -120,7 +120,7 @@ public class Rental {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(duration, endDate, id, price, rentACarIds, startDate, status, username,
+		return Objects.hash(duration, endDate, id, price, rentACarId, startDate, status, username,
 				vehicleIds, vehicles);
 	}
 
@@ -135,7 +135,7 @@ public class Rental {
 		Rental other = (Rental) obj;
 		return duration == other.duration && Objects.equals(endDate, other.endDate) && Objects.equals(id, other.id)
 				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
-				&& Objects.equals(rentACarIds, other.rentACarIds)
+				&& Objects.equals(rentACarId, other.rentACarId)
 				&& Objects.equals(startDate, other.startDate) && status == other.status
 				&& Objects.equals(username, other.username) && Objects.equals(vehicleIds, other.vehicleIds)
 				&& Objects.equals(vehicles, other.vehicles);
@@ -143,8 +143,8 @@ public class Rental {
 
 	@Override
 	public String toString() {
-		return "Rental [id=" + id + ", vehicles=" + vehicles + ", vehicleIds=" + vehicleIds + ", rentACarIds="
-				+ rentACarIds + ", startDate=" + startDate + ", endDate=" + endDate
+		return "Rental [id=" + id + ", vehicles=" + vehicles + ", vehicleIds=" + vehicleIds + ", rentACarId="
+				+ rentACarId + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", duration=" + duration + ", price=" + price + ", username=" + username + ", status=" + status + "]";
 	}
 	

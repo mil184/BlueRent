@@ -10,7 +10,6 @@ Vue.component("customerPage", {
         gender: null,
         dateOfBirth: null,
         role: null,
-        photoUrl : null,
       },
     };
   },
@@ -18,7 +17,7 @@ Vue.component("customerPage", {
     <div class="profile-container">
     <div class="profile-header">
       <h2>Welcome, {{ user.firstName }} {{ user.lastName }}!</h2>
-      <img :src="user.photoUrl" alt="User Photo" class="profile-photo">
+  <!--<img :src="user.photoUrl" alt="User Photo" class="profile-photo"> -->
     </div>
 
     <div class="user-info">
@@ -32,6 +31,7 @@ Vue.component("customerPage", {
 
     <div class="button-container">
       <button @click="editUser">Edit Profile</button>
+      <button @click="viewRentals">View Rentals</button>
     </div>
   </div>
   `,
@@ -43,6 +43,9 @@ Vue.component("customerPage", {
 	  editUser: function(){
 		  this.$router.push(`/` + this.username + `/edit`);
 	  },
+	  viewRentals: function() {
+		  this.$router.push(`/` + this.username + '/rentals');
+	  }
   }
   
 });

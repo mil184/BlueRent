@@ -1,7 +1,7 @@
 package enums;
 
 public enum FuelType {
-	disel,
+	diesel,
 	gasoline,
 	hybrid,
 	electric

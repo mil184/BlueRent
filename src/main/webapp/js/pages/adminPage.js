@@ -9,8 +9,7 @@ Vue.component("adminPage", {
         lastName: null,
         gender: null,
         dateOfBirth: null,
-        role: null,
-        photoUrl : null,
+        role: null
       },
     };
   },
@@ -18,7 +17,7 @@ Vue.component("adminPage", {
     <div class="profile-container">
     <div class="profile-header">
       <h2>Welcome, {{ user.firstName }} {{ user.lastName }}!</h2>
-      <img :src="user.photoUrl" alt="User Photo" class="profile-photo">
+    <!--  <img :src="user.photoUrl" alt="User Photo" class="profile-photo"> -->
     </div>
 
     <div class="user-info">

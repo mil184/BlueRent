@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -70,7 +71,7 @@ public class RentalService {
 
 	    if (foundRental != null) {
 	        foundRental.setVehicleIds(updatedRental.getVehicleIds());
-	        foundRental.setRentACarIds(updatedRental.getRentACarIds());
+	        foundRental.setRentACarId(updatedRental.getRentACarId());
 	        foundRental.setStartDate(updatedRental.getStartDate());
 	        foundRental.setEndDate(updatedRental.getEndDate());
 	        foundRental.setPrice(updatedRental.getPrice());
@@ -82,5 +83,34 @@ public class RentalService {
 
 	    return null; 
 	}
-
+	
+	@GET
+	@Path("/getByCustomer/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ArrayList<Rental> getRentalsByCustomer(@PathParam ("username") String username) {
+		RentalDAO rentalDAO = (RentalDAO) ctx.getAttribute("rentalDAO");
+		ArrayList<Rental> rentals = new ArrayList<Rental>();
+		for(Rental rental: rentalDAO.findAll()) {
+			if(rental.getUsername().compareToIgnoreCase(username) == 0) {
+				rentals.add(rental);
+			}
+		}
+		return rentals;
+	}
+	
+	@GET
+	@Path("/getByManager/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ArrayList<Rental> getRentalsByManager(@PathParam ("username") String username) {
+		RentalDAO rentalDAO = (RentalDAO) ctx.getAttribute("rentalDAO");
+		ArrayList<Rental> rentals = new ArrayList<Rental>();
+		for(Rental rental: rentalDAO.findAll()) {
+			if(rental.getUsername().compareToIgnoreCase(username) == 0) {
+				rentals.add(rental);
+			}
+		}
+		return rentals;
+	}
 }

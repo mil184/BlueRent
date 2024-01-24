@@ -119,15 +119,8 @@ public class RentalDAO {
                         String vehicleId = idTokenizer.nextToken().trim();
                         vehicleIdList.add(Integer.parseInt(vehicleId));
                     }
-
-                    String rentACarIds = st.nextToken().trim();
-                    ArrayList<Integer> rentACarIdList = new ArrayList<>();
-                    StringTokenizer idTokenizerR = new StringTokenizer(rentACarIds, "|");
-                    while (idTokenizerR.hasMoreTokens()) {
-                        String rentACarId = idTokenizerR.nextToken().trim();
-                        rentACarIdList.add(Integer.parseInt(rentACarId));
-                    }
-
+              
+                    int rentACarId = Integer.parseInt(st.nextToken().trim());
                     LocalDate startDate = LocalDate.parse(st.nextToken().trim(), formatter);
 
                     LocalDate endDate = LocalDate.parse(st.nextToken().trim(), formatter);
@@ -140,7 +133,7 @@ public class RentalDAO {
 
                     RentalStatus status = RentalStatus.valueOf(st.nextToken().trim());
 
-                    Rental rental = new Rental(id, vehicleIdList, rentACarIdList ,startDate, endDate, duration, price, username, status);
+                    Rental rental = new Rental(id, vehicleIdList, rentACarId ,startDate, endDate, duration, price, username, status);
                     rentalList.add(rental);
                     rentals.put(id, rental);
                 }
@@ -167,17 +160,7 @@ public class RentalDAO {
             }
             line.append(";");
 
-            ArrayList<Integer> rentACarIds = rental.getRentACarIds();
-            if (rentACarIds != null) {
-                for (int i = 0; i < rentACarIds.size(); i++) {
-                    line.append(rentACarIds.get(i));
-                    if (i < rentACarIds.size() - 1) {
-                        line.append("|");
-                    }
-                }
-            }
-            line.append(";");
-            
+            line.append(rental.getRentACarId()).append(";");
             line.append(rental.getStartDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
             line.append(rental.getEndDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
             line.append(rental.getPrice()).append(";");
@@ -197,7 +180,7 @@ public class RentalDAO {
 
         if (rentalToUpdate != null) {
             rentalToUpdate.setVehicleIds(updatedRental.getVehicleIds());
-            rentalToUpdate.setRentACarIds(updatedRental.getRentACarIds());
+            rentalToUpdate.setRentACarId(updatedRental.getRentACarId());
             rentalToUpdate.setStartDate(updatedRental.getStartDate());
             rentalToUpdate.setEndDate(updatedRental.getEndDate());
             rentalToUpdate.setPrice(updatedRental.getPrice());
@@ -230,17 +213,7 @@ public class RentalDAO {
                 }
                 line.append(";");
                 
-                ArrayList<Integer> rentACarIds = rental.getRentACarIds();
-                if (rentACarIds != null) {
-                    for (int i = 0; i < rentACarIds.size(); i++) {
-                        line.append(rentACarIds.get(i));
-                        if (i < rentACarIds.size() - 1) {
-                            line.append("|");
-                        }
-                    }
-                }
-                line.append(";");
-
+                line.append(rental.getRentACarId()).append(";");
                 line.append(rental.getStartDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
                 line.append(rental.getEndDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(";");
                 line.append(rental.getPrice()).append(";");

@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 
-.registered-users-container {
+.customer-rentals-container {
   max-width: 800px;
   margin: 0 auto;
 }
@@ -15,22 +15,18 @@
   margin-bottom: 20px;
 }
 
-.filter-options {
-  margin-bottom: 20px;
-}
-
-.user-table {
+.rental-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.user-table th, .user-table td {
+.rental-table th, .rental-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
 
-.user-table th {
+.rental-table th {
   background-color: #f2f2f2;
 }
